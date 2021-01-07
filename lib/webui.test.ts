@@ -1,8 +1,8 @@
 import { Stack } from '@aws-cdk/core';
-import * as Tdd from '../lib/tdd-stack';
+import * as Tdd from './tdd-stack';
 import * as cdk from '@aws-cdk/core';
 import '@aws-cdk/assert/jest';
-import * as webui from "../lib/webui";
+import * as webui from "./webui";
 
 describe('When app is deployed', () => {
 
@@ -25,7 +25,7 @@ describe('When stack is deployed', () => {
 
     test('it describes an S3 bucket', () => {
         expect(stack1).toHaveResource('AWS::S3::Bucket', {
-            BucketName: 'uniquebcketname.nelli.com3'
+            BucketName: 'uniquebcketname.nelli.com'
         });
     })
 
