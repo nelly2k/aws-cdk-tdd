@@ -20,11 +20,11 @@ describe('When app is deployed', () => {
 });
 
 describe('When stack is deployed', () => {
-    const stack1 = new Stack();
-    new webui.WebUi(stack1, 'webui');
+    const stack = new Stack();
+    new webui.WebUi(stack, 'webui');
 
     test('it describes an S3 bucket', () => {
-        expect(stack1).toHaveResource('AWS::S3::Bucket', {
+        expect(stack).toHaveResource('AWS::S3::Bucket', {
             BucketName: 'uniquebcketname.nelli.com'
         });
     })

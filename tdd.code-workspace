@@ -8,7 +8,7 @@
         "files.exclude": {
 			// "lib/*.js": true,
 			"**/*d.ts": true,
-			"node_modules": true
+			// "node_modules": true
         }
     }
 }

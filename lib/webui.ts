@@ -7,6 +7,11 @@ export class WebUi extends cdk.Construct{
         
         var webuiBucket = new s3.Bucket(this, 'webui.bucket', {
             bucketName: 'uniquebcketname.nelli.com'
+        });
+        
+
+        var anotherBucket = new s3.Bucket(this, 'another.bucket', {
+            bucketName: 'uniquebcketname.yahoo.com'
           });
     }
 }
