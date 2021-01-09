@@ -8,8 +8,7 @@
     "build": "tsc",
     "test": "jest",
     "cdk": "cdk",
-    "buildtest": "tsc && jest",
-    "watch": "jest --watchAll"
+    "watch": "jest --watch"
   },
   "devDependencies": {
     "@aws-cdk/assert": "^1.83.0",
@@ -23,6 +22,7 @@
     "typescript": "~3.9.7"
   },
   "dependencies": {
+    "@aws-cdk/aws-dynamodb": "^1.83.0",
     "@aws-cdk/aws-s3": "^1.83.0",
     "@aws-cdk/core": "1.83.0",
     "source-map-support": "^0.5.16"
