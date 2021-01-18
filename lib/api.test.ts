@@ -2,35 +2,60 @@ import { Stack } from '@aws-cdk/core';
 import * as api from './api';
 import '@aws-cdk/assert/jest';
 
-describe('given api is provisioned', () => {
-    const resource = "AWS::DynamoDB::Table";
+describe('Given api is provisioned', () => {
+    const tableResource = "AWS::DynamoDB::Table";
+    let stack: Stack;
 
-    describe('when table get provisioned', () => {
-        test('and name specified, then named accordingly', () => {
-            const stack = new Stack();
+    beforeEach(() => {
+        stack = new Stack();
+    });
 
-            new api.Api(stack, 'api', {
+    const input = (input: api.ApiProps) => {
+        new api.Api(stack, 'api', input);
+    }
+
+    describe('when table get created', () => {
+        test('if name specified, then use this name', () => {
+            
+            input({
                 tableName: 'mynewtable',
-                resource: 'dogs'
-            });
-
-            expect(stack).toHaveResource(resource, {
-                TableName: "mynewtable"
-            })
-        });
-
-        test('and name not specified, then named as resource', () => {
-            const stack = new Stack();
-
-            new api.Api(stack, 'api', {
                 resource: 'dogs',
+                methods: ['GET']
             });
 
-            expect(stack).toHaveResource(resource, {
-                TableName : "dogs"
+            expect(stack).toHaveResource(tableResource, {
+                TableName: "mynewtable"
+            });
+        });
+
+        test('if name not specified, then use resource name', () => {
+            input({
+                resource: 'dogs',
+                methods:  [ 'GET']
+            });
+
+            expect(stack).toHaveResource(tableResource, {
+                TableName : 'dogs'
             })
         });
-    })
+        
+        describe('when api gateway provisioned', () => {
+            test('resource created', () => {
+                input({ resource: 'dogs', methods: ['GET'] });
+                expect(stack).toHaveResource("AWS::ApiGateway::Resource", {
+                    PathPart: 'dogs'
+                })
+            });
 
+            test('if not methods are provided, then excpetion', () => {
+                input({ resource: 'dogs', methods:  [ 'GET'] });
+                expect(stack).toThrowError('No methods are provided');
+            });
+
+            
+        })
+    });
+  
+    
 
 })
