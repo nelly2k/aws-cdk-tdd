@@ -12,17 +12,18 @@ export class DynamoDbChecker implements IAspect{
     
         if (node instanceof dynamodb.CfnTable) {
 
-            node.node.addError("there is problem with that table");
-            Annotations.of(node).addError('DynamoDb table has no generic id')
+            // node.node.addError("there is problem with that table");
+            // Annotations.of(node).addError('DynamoDb table has no generic id')
             
             node.tableName = 'blahj';
-            // var keySchemas = node.keySchema as Array<dynamodb.CfnTable.KeySchemaProperty> ;
+            var keySchemas = node.keySchema as Array<dynamodb.CfnTable.KeySchemaProperty> ;
           
-            // if (!keySchemas.some(x => x.attributeName == 'id')) {
-            //     console.log("we are here");
-            //     node.node.addError("there is problem with that table");
-            //     Annotations.of(node).addError('DynamoDb table has no generic id')
-            // }
+            if (!keySchemas.some(x => x.attributeName == 'id')) {
+                // console.log("we are here");
+               // throw new Error("DynamoDb table has no generic id");
+                // node.node.addError("there is problem with that table");
+                Annotations.of(node).addError('DynamoDb table has no generic id')
+            }
         }
     }
     
